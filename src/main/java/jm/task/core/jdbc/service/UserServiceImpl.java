@@ -22,10 +22,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> getAllUsers() {
-        return null;
+        List<User> users = users.getAllUsers();
+        return users != null ? users : new ArrayList<>();
+        }
+
     }
 
     public void cleanUsersTable() {
 
     }
+}
+
+public void main() {
 }

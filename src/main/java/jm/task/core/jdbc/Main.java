@@ -1,13 +1,16 @@
 package jm.task.core.jdbc;
 import jm.task.core.jdbc.util.Util;
+import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.model.User;
+import java.util.List;
+
+
 
 
 public class Main {
     public static void main(String[] args) {
-        UserServiceImpl userService = new UserServiceImpl();
-
+        UserService userService = new UserServiceImpl();
         userService.createUsersTable();
 
         userService.saveUser("Jennie", "Kim", (byte) 20);
@@ -15,12 +18,13 @@ public class Main {
         userService.saveUser("Anna", "Jones", (byte) 35);
         userService.saveUser("Luke", "Smith", (byte) 29);
 
-        for (User user : userService.getAllUsers()) {
+        List<User> users = userService.getAllUsers();
+        for (User user : users) {
             System.out.println(user);
         }
 
-
     }
+
 }
 
 

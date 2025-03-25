@@ -4,24 +4,25 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+
 public class Util {
-    private static final String URL = "jdbc:mysql://localhost:3306/user_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = "imgbas01";
-
-    public static Connection getConnection() {
-        Connection connection = null;
-        try {
-            Properties connectionProps = new Properties();
-            connectionProps.put("user", USER);
-            connectionProps.put("password", PASSWORD);
-
-            connection = DriverManager.getConnection(URL, connectionProps);
-            System.out.println("Connected to database");
-        } catch (SQLException e) {
-            System.out.println("Connection failed: " + e.getMessage());
+    private static SessionFactory sessionFactory;
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            try {
+                sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(jm.task.core.jdbc.model.User.class).buildSessionFactory();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return connection;
+        return sessionFactory;
     }
+
+
 }
+
+
 
